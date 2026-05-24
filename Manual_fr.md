@@ -56,6 +56,17 @@ Affichés tout à droite de l'en-tête lors de l'exécution en tant qu'applicati
 | `□` | Agrandir / Restaurer |
 | `×` | Fermer |
 
+### Boutons rapides de la barre de titre
+
+| Bouton | Action |
+|--------|--------|
+| `✂` | Ouvrir la boîte de dialogue du gestionnaire de snippets (`Ctrl+I`) |
+| `☀` | Activer / désactiver le curseur Spotlight (`Alt+P`) |
+| `☀ ▾` | Changer le preset Spotlight actif |
+
+Le bouton des snippets affiche un badge avec le nombre d'éléments enregistrés. La couleur de l'icône Spotlight suit le preset actuellement sélectionné.
+
+
 ---
 
 ## Ecran Home
@@ -88,6 +99,7 @@ Cliquez sur un tag pour filtrer les éléments ayant ce tag. Cliquez sur **All**
 - Texte indicatif : `Full-text search (Ctrl+K) e.g. has:url code:powershell foo`
 - `Ctrl+K` pour placer le focus
 - Bouton `Clear` pour réinitialiser le terme de recherche
+- Saisir rapidement `::` ouvre la fenêtre modale des snippets épinglés
 
 **Chips de filtre**
 
@@ -107,6 +119,7 @@ Lorsqu'un filtre de date est actif, une chip `date: YYYY-MM-DD ×` est affichée
 **Lignes de Memo de ticket**
 
 Lorsqu'un ticket a des memos attachés, chaque memo est affiché comme ligne enfant sous la ligne du ticket.
+Les tickets qui ont des memos affichent un bouton `▼ / ▶` pour développer ou replier l'arborescence des memos.
 
 | Action | Comportement |
 |--------|----------|
@@ -129,6 +142,7 @@ Un simple clic sur un élément affiche un aperçu dans le panneau de droite.
 - Ticket Memos: aperçu du memo de style Cornell (sans panneau de liste)
 - **Fullscreen button** (⛶): Ouvrir l'aperçu en plein écran
 - **Zoom toggle**: Changer la taille de l'aperçu Cornell (compact / readable)
+- Les fichiers modifiés dans un éditeur externe sont détectés automatiquement et actualisent la liste et l'aperçu
 
 ### Raccourcis clavier de l'ecran Home
 
@@ -205,12 +219,17 @@ Utilisez le commutateur de mode des panneaux pour changer le nombre de panneaux 
 | `2` | Deux panneaux |
 | `3` | Trois panneaux (tous les panneaux visibles simultanément) ※ Par défaut |
 
+Le mode d'affichage choisi est appliqué immédiatement et restauré lorsque vous rouvrez la note. En mode 3 panneaux, le panneau Summary reste bien visible.
+
 **Onglets**
 
 | Onglet | Description |
 |-----|-------------|
 | Edit | Éditeur CodeMirror |
 | Preview | Aperçu Markdown (avec table des matières) |
+
+- Appuyez sur `Ctrl+F` pendant l'édition pour ouvrir le panneau de recherche localisé
+- L'onglet Preview permet d'exporter en PDF avec le style d'arrière-plan actuel
 
 **Barre d'outils Markdown**
 
@@ -249,6 +268,9 @@ Affiché dans le coin supérieur droit.
 | Saved | `Saved` |
 | Unsaved | `Unsaved` |
 | Saving | `Saving…` |
+
+- Les polices du contenu de l'éditeur et de l'aperçu peuvent être modifiées dans Settings → Editor
+- Les fichiers de note modifiés hors de l'application sont rechargés automatiquement
 
 **Suppression**
 
@@ -319,6 +341,7 @@ La sélection d'un ticket ouvre l'éditeur dans le panneau de droite.
 | Edit | Éditeur de style Cornell (Cue / Note / Summary) |
 | Preview | Aperçu Markdown (disposition Cornell à 3 panneaux) |
 | Comments (n) | Ajouter et afficher des commentaires |
+| Memo | Voir et modifier les memos du ticket sélectionné |
 
 **Suppression**
 
@@ -327,23 +350,26 @@ Si le ticket a des memos, la boîte de dialogue inclut le nombre de memos dans l
 
 ### Fonction Memo
 
-Les tickets peuvent avoir plusieurs memos de style Cornell attachés. Ils sont utiles pour les notes de réunion, la recherche, les références et toute information structurée liée à la tâche.
+Les tickets peuvent avoir plusieurs **memos** de style Cornell. L'onglet s'appelle désormais **Memo**, et les documents enfants auparavant considérés comme des « docs » sont gérés sous le même nom. Vous pouvez ainsi séparer les comptes rendus, notes de recherche et documents d'appui du corps principal du ticket.
 
 **Ajout d'un memo**
 
-Cliquez sur le bouton `+ Add Memo` en bas du panneau de gauche. Le memo est créé immédiatement et l'éditeur de memo s'ouvre dans le panneau de droite.
+- Cliquez sur le bouton `+ Add Memo` dans l'onglet `Memo` ou en bas du panneau de gauche pour créer un memo immédiatement
+- Les nouveaux memos utilisent `Memo` comme titre par défaut
 
 **Éditeur de memo**
 
-L'éditeur de memo utilise la même disposition Cornell à 3 panneaux (Cue / Note / Summary) que l'éditeur principal du ticket.
+L'éditeur de memo utilise la même disposition Cornell que les notes, avec des modes 1 / 2 / 3 panneaux. Les comportements de sauvegarde, suppression, plein écran et changement de disposition sont maintenant alignés sur ceux des notes.
 
 | Onglet | Description |
 |-----|-------------|
 | Edit | Éditeur de style Cornell (Cue / Note / Summary) |
-| Preview | Aperçu Markdown (disposition Cornell à 3 panneaux) |
+| Preview | Aperçu Markdown (disposition Cornell à 1 / 2 / 3 panneaux) |
 
-- L'auto-save commence dès qu'un titre est saisi
-- Les modifications sont auto-enregistrées 800 ms après la dernière édition
+- L'auto-save commence dès que le titre existe
+- Les changements de mode de panneau sont appliqués immédiatement et restaurés à la prochaine ouverture
+- L'onglet Preview inclut l'export PDF
+- Les fichiers de memo modifiés dans un éditeur externe sont rechargés automatiquement
 
 **Opérations sur les memos**
 
@@ -352,7 +378,7 @@ L'éditeur de memo utilise la même disposition Cornell à 3 panneaux (Cue / Not
 | Click a memo row | Ouvrir l'éditeur de memo |
 | `👁` icon | Masquer / afficher le memo dans la liste (les données sont conservées) |
 | `🗑` icon | Supprimer le memo (boîte de dialogue de confirmation affichée) |
-| `⛶` (fullscreen) | Ouvrir le memo en vue plein écran (disponible depuis l'écran Home) |
+| `⛶` (fullscreen) | Ouvrir le memo dans une vue Peek plein écran sans panneau de liste |
 
 > Les memos appartiennent à leur ticket parent. La suppression d'un ticket supprime également tous ses memos.
 
@@ -406,6 +432,13 @@ Les scores des notes sont calculés à partir des facteurs suivants.
 - Cliquez sur `Open` pour aller à l'écran correspondant
 - Appuyez sur `ESC` ou cliquez sur `Close` pour quitter
 
+### Recherche de snippets et fenêtre des éléments épinglés
+
+- Lorsque la barre de recherche est vide, la page reste en mode Focus et affiche les notes et tickets classés par activité d'édition
+- Lorsque vous saisissez un mot-clé, la page passe en mode Snippet et met en évidence les panneaux Cornell correspondants
+- Saisir rapidement `::` ouvre la fenêtre modale des snippets épinglés pour les copier
+- Utilisez le bouton `✂` de la barre de titre ou `Ctrl+I` pour ouvrir le gestionnaire de snippets à tout moment
+
 ### Raccourcis clavier de l'ecran Focus
 
 | Raccourci | Action |
@@ -430,6 +463,7 @@ Accédez aux réglages depuis le bouton **Settings** de l'en-tête. Sélectionne
 - `Preview`: Prévisualiser immédiatement le thème sélectionné
 - `Save theme`: Sauvegarder le thème vers l'hôte
 - `Save language/locale`: Sauvegarder les réglages de langue
+- La langue enregistrée est aussi utilisée pour l'interface native et intégrée, comme les boîtes de dialogue de fichiers, les erreurs de démarrage et le panneau de recherche `Ctrl+F`
 
 ### Workspace
 
@@ -446,6 +480,16 @@ Accédez aux réglages depuis le bouton **Settings** de l'en-tête. Sélectionne
 |---------|-------------|
 | Auto-save | Si l'auto-save a lieu lors de la saisie (ON/OFF) |
 | Auto-save interval (ms) | Intervalle d'auto-save (200–10,000 ms, réglage UI local) |
+
+### Editor
+
+| Réglage | Description |
+|---------|-------------|
+| Font family | Police utilisée pour le contenu de l'éditeur et de l'aperçu |
+| Font size (px) | Taille de police du contenu principal |
+
+- Les modifications sont prévisualisées immédiatement, même avant la sauvegarde
+- `Reset to default` rétablit les valeurs par défaut
 
 ### Tickets
 
@@ -465,6 +509,19 @@ Accédez aux réglages depuis le bouton **Settings** de l'en-tête. Sélectionne
 | Activity log | Activer le suivi du nombre d'éditions (le contenu des notes et les requêtes de recherche ne sont pas stockés) |
 
 > ※ Les auto-saves consécutives sont comptées comme une seule fois par minute afin d'éviter de gonfler les scores.
+
+### Curseur Spotlight
+
+| Réglage | Description |
+|---------|-------------|
+| Presets 1–5 | Choisir parmi cinq presets Spotlight fixes |
+| Name | Nom affiché pour chaque preset (20 caractères max.) |
+| Size (px) | Diamètre du cercle Spotlight (20–200 px) |
+| Color | Couleur utilisée par le cercle Spotlight et l'icône d'en-tête |
+| Opacity | Niveau de transparence du Spotlight |
+
+- Utilisez le bouton `☀` de la barre de titre ou `Alt+P` pour activer / désactiver le Spotlight
+- `Reset to default` restaure la couleur et la taille par défaut du preset actuel
 
 ### Maintenance
 
@@ -498,6 +555,8 @@ has:url code:powershell memo
 ```
 → Éléments qui contiennent une URL, un bloc de code PowerShell et le mot-clé "memo"
 
+Remarque : saisir rapidement `::` ouvre la fenêtre des snippets épinglés au lieu d'exécuter une recherche normale.
+
 ---
 
 ## Raccourcis clavier
@@ -507,6 +566,9 @@ has:url code:powershell memo
 | Raccourci | Action |
 |----------|--------|
 | `Ctrl+K` | Placer le focus sur la barre de recherche Home |
+| `Ctrl+I` | Ouvrir la boîte de dialogue du gestionnaire de snippets |
+| `Alt+P` | Activer / désactiver le curseur Spotlight |
+| `::` | Ouvrir la fenêtre des snippets épinglés |
 | `Ctrl+Shift+T` | Appliquer le filtre de date d'aujourd'hui |
 | `Ctrl+Mouse Wheel` | Zoom avant / Zoom arrière |
 | `Ctrl+0` | Réinitialiser le zoom à 100% |
@@ -522,6 +584,7 @@ has:url code:powershell memo
 | `Ctrl+E` | Basculer vers l'onglet Edit |
 | `Ctrl+P` | Basculer vers l'onglet Preview |
 | `/` | Placer le focus sur la barre de recherche des notes |
+| `Ctrl+F` | Ouvrir le panneau de recherche dans l'éditeur |
 
 ### Ecran Tickets
 
@@ -529,6 +592,7 @@ has:url code:powershell memo
 |----------|--------|
 | `Ctrl+Enter` | Sauvegarder |
 | `/` | Placer le focus sur la barre de recherche des tickets |
+| `Ctrl+F` | Ouvrir le panneau de recherche dans l'éditeur |
 
 ### Ecran Focus
 
@@ -604,6 +668,8 @@ Exemple : `backlog, doing, done, blocked, archived`
 | `E_APP_NOT_READY` | Attendez que l'application ait fini de démarrer, puis réessayez |
 | `E_WEBVIEW2_UNAVAILABLE` | Installez WebView2 Runtime |
 | `E_SETTINGS_CORRUPT` | Les réglages seront réinitialisés automatiquement. Reconfigurez vos réglages |
+
+Les erreurs de lecture/écriture de fichiers et les messages des boîtes de dialogue natives sont affichés dans la langue choisie dans Settings.
 
 ### Auto-save ne fonctionne pas
 1. Vérifiez que Settings → Notes/Tickets → **Auto-save** est activé
