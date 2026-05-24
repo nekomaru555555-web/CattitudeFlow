@@ -56,6 +56,17 @@ Displayed at the far right of the header when running as a native app.
 | `□` | Maximize / Restore |
 | `×` | Close |
 
+### Title Bar Quick Buttons
+
+| Button | Action |
+|--------|--------|
+| `✂` | Open the Snippet Manager dialog (`Ctrl+I`) |
+| `☀` | Toggle Spotlight Cursor on/off (`Alt+P`) |
+| `☀ ▾` | Switch the active spotlight preset |
+
+The snippet button shows a badge with the number of saved snippets. The spotlight icon color follows the currently selected preset.
+
+
 ---
 
 ## Home Screen
@@ -88,6 +99,7 @@ Click a tag to filter to items with that tag. Click **All** to clear the filter.
 - Placeholder: `Full-text search (Ctrl+K) e.g. has:url code:powershell foo`
 - `Ctrl+K` to focus
 - `Clear` button to reset the search term
+- Typing `::` quickly opens the pinned snippet modal
 
 **Filter Chips**
 
@@ -107,6 +119,7 @@ When a date filter is active, a `date: YYYY-MM-DD ×` chip is shown and can be c
 **Ticket Memo Rows**
 
 When a ticket has memos attached, each memo is displayed as a child row beneath the ticket row.
+Tickets that have memos show a `▼ / ▶` toggle so you can expand or collapse the memo tree.
 
 | Action | Behavior |
 |--------|----------|
@@ -129,6 +142,7 @@ Single-clicking an item shows a preview in the right pane.
 - Ticket Memos: Cornell-style memo preview (without list panel)
 - **Fullscreen button** (⛶): Open the preview in fullscreen
 - **Zoom toggle**: Switch Cornell preview size (compact / readable)
+- Files changed in an external editor are detected automatically and refresh the list and preview
 
 ### Home Screen Keyboard Shortcuts
 
@@ -205,12 +219,17 @@ Use the pane mode toggle to switch how many panes are shown.
 | `2` | Two panes |
 | `3` | Three panes (all panes visible simultaneously) ※ Default |
 
+The selected pane mode is applied immediately and restored when you reopen the note. In 3-pane mode, the Summary pane remains visible.
+
 **Tabs**
 
 | Tab | Description |
 |-----|-------------|
 | Edit | CodeMirror editor |
 | Preview | Markdown preview (with table of contents) |
+
+- Press `Ctrl+F` while the editor is focused to open the localized search panel
+- Use the PDF button on the Preview tab to export with the current background styling
 
 **Markdown Toolbar**
 
@@ -249,6 +268,9 @@ Displayed in the top-right corner.
 | Saved | `Saved` |
 | Unsaved | `Unsaved` |
 | Saving | `Saving…` |
+
+- Editor and preview content fonts can be changed at Settings → Editor
+- Note files changed outside the app are detected and reloaded automatically
 
 **Deletion**
 
@@ -319,6 +341,7 @@ Selecting a ticket opens the editor in the right panel.
 | Edit | Cornell-style editor (Cue / Note / Summary) |
 | Preview | Markdown preview (Cornell 3-pane layout) |
 | Comments (n) | Add and view comments |
+| Memo | View and edit memos for the selected ticket |
 
 **Deletion**
 
@@ -327,23 +350,26 @@ If the ticket has memos, the dialog includes a memo count in the confirmation me
 
 ### Memo Feature
 
-Tickets can have multiple Cornell-style memos attached. They are useful for meeting notes, research, references, and any structured information related to the task.
+Tickets can have multiple Cornell-style **Memos** attached. The tab label is **Memo**, and child documents that were previously treated as “docs” are managed under the same name. This makes it easy to keep meeting notes, research notes, and supporting material separate from the main ticket body.
 
 **Adding a Memo**
 
-Click the `+ Add Memo` button at the bottom of the left panel. The memo is created immediately and the memo editor opens in the right panel.
+- Click the `+ Add Memo` button in the `Memo` tab or at the bottom of the left panel to create a memo immediately
+- New memos use `Memo` as the default title
 
 **Memo Editor**
 
-The memo editor uses the same Cornell 3-pane layout (Cue / Note / Summary) as the main ticket editor.
+The memo editor uses the same Cornell layout as notes, with 1 / 2 / 3 pane display modes. Save, delete, fullscreen, and layout behavior now match the note experience.
 
 | Tab | Description |
 |-----|-------------|
 | Edit | Cornell-style editor (Cue / Note / Summary) |
-| Preview | Markdown preview (Cornell 3-pane layout) |
+| Preview | Markdown preview (Cornell 1 / 2 / 3-pane layout) |
 
-- Auto-save begins as soon as a title is entered
-- Changes are auto-saved 800 ms after the last edit
+- Auto-save begins as soon as the title is created
+- Pane mode changes are applied immediately and restored the next time you open the memo
+- The Preview tab includes PDF export
+- Memo files changed in an external editor are reloaded automatically
 
 **Memo Operations**
 
@@ -352,7 +378,7 @@ The memo editor uses the same Cornell 3-pane layout (Cue / Note / Summary) as th
 | Click a memo row | Open the memo editor |
 | `👁` icon | Hide / show the memo in the list (data is retained) |
 | `🗑` icon | Delete the memo (confirmation dialog shown) |
-| `⛶` (fullscreen) | Open the memo in fullscreen view (available from the Home screen) |
+| `⛶` (fullscreen) | Open the memo in a fullscreen Peek view without the list panel |
 
 > Memos belong to their parent ticket. Deleting a ticket also deletes all its memos.
 
@@ -406,6 +432,13 @@ Note scores are calculated from the following factors.
 - Click `Open` to navigate to the corresponding screen
 - Press `ESC` or click `Close` to exit
 
+### Snippet Search and Pinned Modal
+
+- When the search bar is empty, the page stays in Focus mode and shows notes and tickets ranked by edit activity
+- When you enter a keyword, the page switches to Snippet mode and highlights matching Cornell panes
+- Typing `::` quickly opens the pinned snippet modal so you can copy pinned blocks
+- Use the title-bar `✂` button or `Ctrl+I` to open the Snippet Manager at any time
+
 ### Focus Screen Keyboard Shortcuts
 
 | Shortcut | Action |
@@ -430,6 +463,7 @@ Access settings from the **Settings** button in the header. Select a category fr
 - `Preview`: Preview the selected theme immediately
 - `Save theme`: Save the theme to the host
 - `Save language/locale`: Save language settings
+- The saved language is also used for native and built-in UI such as file dialogs, startup errors, and the `Ctrl+F` search panel
 
 ### Workspace
 
@@ -446,6 +480,16 @@ Access settings from the **Settings** button in the header. Select a category fr
 |---------|-------------|
 | Auto-save | Whether to auto-save on input (ON/OFF) |
 | Auto-save interval (ms) | Auto-save interval (200–10,000 ms, local UI setting) |
+
+### Editor
+
+| Setting | Description |
+|---------|-------------|
+| Font family | Font used for editor content and preview content |
+| Font size (px) | Font size for body content |
+
+- Changes are previewed immediately, even before saving
+- `Reset to default` restores the default values
 
 ### Tickets
 
@@ -465,6 +509,19 @@ Access settings from the **Settings** button in the header. Select a category fr
 | Activity log | Enable edit count tracking (note content and search queries are not stored) |
 
 > ※ Consecutive auto-saves are counted as once per minute to avoid inflating scores.
+
+### Spotlight Cursor
+
+| Setting | Description |
+|---------|-------------|
+| Presets 1–5 | Choose from five fixed spotlight presets |
+| Name | Display name for each preset (up to 20 characters) |
+| Size (px) | Spotlight circle diameter (20–200 px) |
+| Color | Color used by the spotlight circle and header icon |
+| Opacity | Transparency level of the spotlight |
+
+- Use the title-bar `☀` button or `Alt+P` to toggle the spotlight on and off
+- `Reset to default` restores the default color and size for the current preset
 
 ### Maintenance
 
@@ -498,6 +555,8 @@ has:url code:powershell memo
 ```
 → Items that contain a URL, a PowerShell code block, and the keyword "memo"
 
+Note: typing `::` quickly opens the pinned snippet modal instead of running a normal search.
+
 ---
 
 ## Keyboard Shortcuts
@@ -507,6 +566,9 @@ has:url code:powershell memo
 | Shortcut | Action |
 |----------|--------|
 | `Ctrl+K` | Focus the Home search bar |
+| `Ctrl+I` | Open the Snippet Manager dialog |
+| `Alt+P` | Toggle Spotlight Cursor on/off |
+| `::` | Open the pinned snippet modal |
 | `Ctrl+Shift+T` | Apply today's date filter |
 | `Ctrl+Mouse Wheel` | Zoom in / Zoom out |
 | `Ctrl+0` | Reset zoom to 100% |
@@ -522,6 +584,7 @@ has:url code:powershell memo
 | `Ctrl+E` | Switch to Edit tab |
 | `Ctrl+P` | Switch to Preview tab |
 | `/` | Focus the note search bar |
+| `Ctrl+F` | Open the in-editor search panel |
 
 ### Tickets Screen
 
@@ -529,6 +592,7 @@ has:url code:powershell memo
 |----------|--------|
 | `Ctrl+Enter` | Save |
 | `/` | Focus the ticket search bar |
+| `Ctrl+F` | Open the in-editor search panel |
 
 ### Focus Screen
 
@@ -604,6 +668,8 @@ Example: `backlog, doing, done, blocked, archived`
 | `E_APP_NOT_READY` | Wait for the app to finish starting, then retry |
 | `E_WEBVIEW2_UNAVAILABLE` | Install WebView2 Runtime |
 | `E_SETTINGS_CORRUPT` | Settings will be reset automatically. Reconfigure your settings |
+
+File read/write errors and native dialog messages are shown in the language selected in Settings.
 
 ### Auto-save is not working
 1. Check that Settings → Notes/Tickets → **Auto-save** is enabled
