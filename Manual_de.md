@@ -56,6 +56,17 @@ Wird ganz rechts im Header angezeigt, wenn die App als native App ausgeführt wi
 | `□` | Maximieren / Wiederherstellen |
 | `×` | Schließen |
 
+### Schnellschaltflächen in der Titelleiste
+
+| Button | Aktion |
+|--------|--------|
+| `✂` | Den Snippet-Manager öffnen (`Ctrl+I`) |
+| `☀` | Spotlight-Cursor ein-/ausschalten (`Alt+P`) |
+| `☀ ▾` | Das aktive Spotlight-Preset wechseln |
+
+Die Snippet-Schaltfläche zeigt ein Badge mit der Anzahl gespeicherter Snippets. Die Farbe des Spotlight-Symbols folgt dem aktuell ausgewählten Preset.
+
+
 ---
 
 ## Startbildschirm
@@ -88,6 +99,7 @@ Klicken Sie auf ein Tag, um nach Elementen mit diesem Tag zu filtern. Klicken Si
 - Platzhalter: `Full-text search (Ctrl+K) e.g. has:url code:powershell foo`
 - `Ctrl+K`, um den Fokus darauf zu setzen
 - Schaltfläche `Clear`, um den Suchbegriff zurückzusetzen
+- Wenn Sie `::` schnell eingeben, wird das Modal mit den angehefteten Snippets geöffnet
 
 **Filter-Chips**
 
@@ -107,6 +119,7 @@ Wenn ein Datumsfilter aktiv ist, wird ein Chip `date: YYYY-MM-DD ×` angezeigt, 
 **Zeilen für Ticket-Memos**
 
 Wenn an ein Ticket Memos angehängt sind, wird jedes Memo als untergeordnete Zeile unter der Ticket-Zeile angezeigt.
+Tickets mit Memos zeigen einen Schalter `▼ / ▶`, mit dem Sie den Memo-Baum ein- oder ausklappen können.
 
 | Aktion | Verhalten |
 |--------|----------|
@@ -129,6 +142,7 @@ Einzelklick auf ein Element zeigt eine Vorschau im rechten Bereich an.
 - Ticket-Memos: Cornell-artige Memo-Vorschau (ohne Listenbereich)
 - **Vollbild-Schaltfläche** (⛶): Die Vorschau im Vollbild öffnen
 - **Zoom-Umschalter**: Größe der Cornell-Vorschau umschalten (kompakt / lesbar)
+- In einem externen Editor geänderte Dateien werden automatisch erkannt und in Liste und Vorschau aktualisiert
 
 ### Tastenkombinationen im Startbildschirm
 
@@ -205,12 +219,17 @@ Verwenden Sie den Umschalter für den Bereichsmodus, um zu wechseln, wie viele B
 | `2` | Zwei Bereiche |
 | `3` | Drei Bereiche (alle Bereiche gleichzeitig sichtbar) ※ Standard |
 
+Der gewählte Bereichsmodus wird sofort angewendet und beim erneuten Öffnen der Notiz wiederhergestellt. Im 3-Bereich-Modus bleibt auch der Summary-Bereich sichtbar.
+
 **Tabs**
 
 | Tab | Beschreibung |
 |-----|-------------|
 | Edit | CodeMirror-Editor |
 | Preview | Markdown-Vorschau (mit Inhaltsverzeichnis) |
+
+- Drücken Sie `Ctrl+F`, während der Editor fokussiert ist, um das lokalisierte Suchfeld zu öffnen
+- Über den Tab Preview können Sie mit dem aktuellen Hintergrundstil als PDF exportieren
 
 **Markdown-Symbolleiste**
 
@@ -249,6 +268,9 @@ Wird in der oberen rechten Ecke angezeigt.
 | Gespeichert | `Saved` |
 | Ungespeichert | `Unsaved` |
 | Speichert | `Saving…` |
+
+- Die Schriftarten für Editor- und Vorschauinhalt können unter Settings → Editor geändert werden
+- Außerhalb der App geänderte Notizdateien werden automatisch neu geladen
 
 **Löschen**
 
@@ -319,6 +341,7 @@ Durch Auswahl eines Tickets wird der Editor im rechten Bereich geöffnet.
 | Edit | Cornell-artiger Editor (Cue / Note / Summary) |
 | Preview | Markdown-Vorschau (Cornell-Layout mit 3 Bereichen) |
 | Comments (n) | Kommentare hinzufügen und anzeigen |
+| Memo | Memos des ausgewählten Tickets anzeigen und bearbeiten |
 
 **Löschen**
 
@@ -327,32 +350,35 @@ Wenn das Ticket Memos hat, enthält der Dialog in der Bestätigungsnachricht die
 
 ### Memo-Funktion
 
-Tickets können mehrere Cornell-artige Memos angehängt haben. Sie sind nützlich für Besprechungsnotizen, Recherchen, Referenzen und jede strukturierte Information im Zusammenhang mit der Aufgabe.
+Tickets können mehrere Cornell-artige **Memos** enthalten. Der Tab heißt jetzt **Memo**, und untergeordnete Dokumente, die früher als „Docs“ behandelt wurden, werden unter demselben Namen verwaltet. So lassen sich Besprechungsnotizen, Recherchen und ergänzende Unterlagen vom eigentlichen Tickettext trennen.
 
 **Ein Memo hinzufügen**
 
-Klicken Sie unten im linken Bereich auf die Schaltfläche `+ Add Memo`. Das Memo wird sofort erstellt und der Memo-Editor wird im rechten Bereich geöffnet.
+- Klicken Sie auf die Schaltfläche `+ Add Memo` im Tab `Memo` oder unten im linken Bereich, um sofort ein Memo zu erstellen
+- Neue Memos verwenden `Memo` als Standardtitel
 
 **Memo-Editor**
 
-Der Memo-Editor verwendet dasselbe Cornell-Layout mit 3 Bereichen (Cue / Note / Summary) wie der Haupt-Ticket-Editor.
+Der Memo-Editor verwendet dasselbe Cornell-Layout wie Notizen und unterstützt 1 / 2 / 3 Bereichsmodi. Speichern, Löschen, Vollbild und Layoutwechsel verhalten sich jetzt wie bei Notizen.
 
 | Tab | Beschreibung |
 |-----|-------------|
 | Edit | Cornell-artiger Editor (Cue / Note / Summary) |
-| Preview | Markdown-Vorschau (Cornell-Layout mit 3 Bereichen) |
+| Preview | Markdown-Vorschau (Cornell-Layout mit 1 / 2 / 3 Bereichen) |
 
-- Automatisches Speichern beginnt, sobald ein Titel eingegeben wird
-- Änderungen werden 800 ms nach der letzten Bearbeitung automatisch gespeichert
+- Das automatische Speichern beginnt, sobald der Titel vorhanden ist
+- Änderungen am Bereichsmodus werden sofort übernommen und beim nächsten Öffnen wiederhergestellt
+- Der Tab Preview enthält den PDF-Export
+- In einem externen Editor geänderte Memo-Dateien werden automatisch neu geladen
 
 **Memo-Operationen**
 
 | Aktion | Beschreibung |
 |--------|-------------|
 | Auf eine Memo-Zeile klicken | Den Memo-Editor öffnen |
-| Symbol `👁` | Das Memo in der Liste ausblenden / anzeigen (Daten bleiben erhalten) |
-| Symbol `🗑` | Das Memo löschen (Bestätigungsdialog wird angezeigt) |
-| `⛶` (Vollbild) | Das Memo in der Vollbildansicht öffnen (verfügbar im Startbildschirm) |
+| `👁` icon | Das Memo in der Liste ausblenden / anzeigen (Daten bleiben erhalten) |
+| `🗑` icon | Das Memo löschen (Bestätigungsdialog wird angezeigt) |
+| `⛶` (fullscreen) | Das Memo in einer Peek-Vollbildansicht ohne Listenbereich öffnen |
 
 > Memos gehören zu ihrem übergeordneten Ticket. Beim Löschen eines Tickets werden auch alle zugehörigen Memos gelöscht.
 
@@ -406,6 +432,13 @@ Die Punktzahlen der Notizen werden aus den folgenden Faktoren berechnet.
 - Auf `Open` klicken, um zum entsprechenden Bildschirm zu navigieren
 - Drücken Sie `ESC` oder klicken Sie auf `Close`, um zu beenden
 
+### Snippet-Suche und Modal für angeheftete Snippets
+
+- Wenn die Suchleiste leer ist, bleibt die Seite im Focus-Modus und zeigt Notizen und Tickets nach Bearbeitungsaktivität sortiert an
+- Wenn Sie ein Stichwort eingeben, wechselt die Seite in den Snippet-Modus und hebt passende Cornell-Bereiche hervor
+- Wenn Sie `::` schnell eingeben, wird das Modal mit angehefteten Snippets zum Kopieren geöffnet
+- Verwenden Sie die Titelleisten-Schaltfläche `✂` oder `Ctrl+I`, um den Snippet-Manager jederzeit zu öffnen
+
 ### Tastenkombinationen im Fokus-Bildschirm
 
 | Shortcut | Aktion |
@@ -430,6 +463,7 @@ Greifen Sie über die Schaltfläche **Settings** im Header auf die Einstellungen
 - `Preview`: Das ausgewählte Thema sofort in der Vorschau anzeigen
 - `Save theme`: Das Thema im Host speichern
 - `Save language/locale`: Spracheinstellungen speichern
+- Die gespeicherte Sprache wird auch für native und integrierte UI wie Dateidialoge, Startfehler und das Suchfeld `Ctrl+F` verwendet
 
 ### Workspace
 
@@ -446,6 +480,16 @@ Greifen Sie über die Schaltfläche **Settings** im Header auf die Einstellungen
 |---------|-------------|
 | Auto-save | Ob bei Eingabe automatisch gespeichert wird (ON/OFF) |
 | Auto-save interval (ms) | Intervall für automatisches Speichern (200–10,000 ms, lokale UI-Einstellung) |
+
+### Editor
+
+| Einstellung | Beschreibung |
+|---------|-------------|
+| Font family | Schriftart für Editorinhalt und Vorschauinhalt |
+| Font size (px) | Schriftgröße für den Hauptinhalt |
+
+- Änderungen werden sofort in der Vorschau angezeigt, auch vor dem Speichern
+- `Reset to default` stellt die Standardwerte wieder her
 
 ### Tickets
 
@@ -465,6 +509,19 @@ Greifen Sie über die Schaltfläche **Settings** im Header auf die Einstellungen
 | Activity log | Verfolgung der Bearbeitungsanzahl aktivieren (Notizinhalte und Suchanfragen werden nicht gespeichert) |
 
 > ※ Aufeinanderfolgende automatische Speicherungen werden als einmal pro Minute gezählt, um eine künstliche Erhöhung der Punktzahlen zu vermeiden.
+
+### Spotlight-Cursor
+
+| Einstellung | Beschreibung |
+|---------|-------------|
+| Presets 1–5 | Zwischen fünf festen Spotlight-Presets wählen |
+| Name | Anzeigename für jedes Preset (bis zu 20 Zeichen) |
+| Size (px) | Durchmesser des Spotlight-Kreises (20–200 px) |
+| Color | Farbe des Spotlight-Kreises und des Header-Symbols |
+| Opacity | Transparenzstufe des Spotlights |
+
+- Verwenden Sie die Titelleisten-Schaltfläche `☀` oder `Alt+P`, um das Spotlight ein- oder auszuschalten
+- `Reset to default` stellt Farbe und Größe des aktuellen Presets auf den Standard zurück
 
 ### Wartung
 
@@ -498,6 +555,8 @@ has:url code:powershell memo
 ```
 → Elemente, die eine URL, einen PowerShell-Codeblock und das Schlüsselwort "memo" enthalten
 
+Hinweis: Wenn Sie `::` schnell eingeben, wird statt einer normalen Suche das Modal mit angehefteten Snippets geöffnet.
+
 ---
 
 ## Tastenkombinationen
@@ -507,6 +566,9 @@ has:url code:powershell memo
 | Shortcut | Aktion |
 |----------|--------|
 | `Ctrl+K` | Die Home-Suchleiste fokussieren |
+| `Ctrl+I` | Den Snippet-Manager öffnen |
+| `Alt+P` | Spotlight-Cursor ein-/ausschalten |
+| `::` | Das Modal mit angehefteten Snippets öffnen |
 | `Ctrl+Shift+T` | Den Datumsfilter für heute anwenden |
 | `Ctrl+Mouse Wheel` | Vergrößern / Verkleinern |
 | `Ctrl+0` | Zoom auf 100 % zurücksetzen |
@@ -522,6 +584,7 @@ has:url code:powershell memo
 | `Ctrl+E` | Zum Tab Edit wechseln |
 | `Ctrl+P` | Zum Tab Preview wechseln |
 | `/` | Die Notiz-Suchleiste fokussieren |
+| `Ctrl+F` | Das Suchfeld im Editor öffnen |
 
 ### Tickets-Bildschirm
 
@@ -529,6 +592,7 @@ has:url code:powershell memo
 |----------|--------|
 | `Ctrl+Enter` | Speichern |
 | `/` | Die Ticket-Suchleiste fokussieren |
+| `Ctrl+F` | Das Suchfeld im Editor öffnen |
 
 ### Fokus-Bildschirm
 
@@ -604,6 +668,8 @@ Beispiel: `backlog, doing, done, blocked, archived`
 | `E_APP_NOT_READY` | Warten Sie, bis die App vollständig gestartet ist, und versuchen Sie es dann erneut |
 | `E_WEBVIEW2_UNAVAILABLE` | Installieren Sie WebView2 Runtime |
 | `E_SETTINGS_CORRUPT` | Die Einstellungen werden automatisch zurückgesetzt. Konfigurieren Sie Ihre Einstellungen erneut |
+
+Fehler beim Lesen/Schreiben von Dateien und Meldungen nativer Dialoge werden in der in Settings gewählten Sprache angezeigt.
 
 ### Automatisches Speichern funktioniert nicht
 1. Prüfen Sie, ob Settings → Notes/Tickets → **Auto-save** aktiviert ist
