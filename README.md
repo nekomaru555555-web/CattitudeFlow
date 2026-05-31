@@ -6,6 +6,45 @@
 
 ![TOP_IMG](img/TOP.png "TOP")
 
+# CattitudeFlow v1.0.5 Release Notes
+
+Release date: 2026-05-31  
+Version: v1.0.5
+
+## New Features
+
+- OCR Memo
+  Capture any area of your screen with a global hotkey (Ctrl+Shift+F12) or via the system tray,
+  and the text is automatically recognized and saved as an OCR Memo.
+  Supported languages: Japanese, English, Chinese, Korean, French, German.
+  When "Save Image" is enabled in settings, a screenshot is also displayed in a cork board–style image area.
+
+- Customizable Shortcut Keys
+  You can now reassign the four global hotkeys (Show/Hide, Spotlight, Snippet, OCR)
+  used by the resident app. Changes are made from the "Shortcut Keys" section in Settings
+  and are reflected instantly in the system tray menu.
+
+- Expanded System Tray Menu
+  "Spotlight," "Snippet," and "OCR" entries have been added to the tray menu.
+  Each entry shows its currently assigned hotkey.
+
+## Improvements
+
+- Enhanced Editor
+  Added support for math rendering (KaTeX), footnotes, and syntax highlighting.
+  Inline WYSIWYG-style preview makes Markdown content easier to read while editing.
+
+- WPF 6-Language Support
+  The system tray menu and native dialogs now display in the configured language
+  (Japanese / English / Chinese / Korean / French / German).
+
+## Bug Fixes
+
+· Fixed a scrollbar overlap issue in the Focus page that caused screen flickering.
+· Fixed an issue where OCR native DLLs were missing from the MSIX package.
+
+---
+
 # CattitudeFlow v1.0.4 Release Notes
 
 Release date: 2026-05-24  
